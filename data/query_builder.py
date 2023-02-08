@@ -9,12 +9,12 @@ if __name__ == "__main__":
 from nsm_utils import k_multinomial
 from memory_utils import add_snapshot, convert_memory_simple, check_inactive
 from config_args import get_opts
-from filters_based_queries import FiltersQA
-from geometric_minimax_queries import GeometricQA
-from geometric_basic_queries import BasicGeometricQA
-from temporal_snapshot_queries import TemporalSnapshotQA
-from agent_action_queries import AgentActionQA
-from object_tracking_queries import ObjectTrackingQA
+from queries_filters_based import FiltersQA
+from queries_geometric_minimax import GeometricQA
+from queries_geometric_basic import BasicGeometricQA
+from queries_temporal_snapshot import TemporalSnapshotQA
+from queries_agent_action import AgentActionQA
+from queries_object_tracking import ObjectTrackingQA
 
 
 # FIXME/TODO? allow multiple questions per agent_memory,
