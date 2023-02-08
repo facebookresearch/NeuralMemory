@@ -167,18 +167,6 @@ def get_mob_name_with_color(color=None):
     return choice(EQA_COLOR_MOB_MAP[color])
 
 
-def get_filters_from_lf(lf, filter_list=None):
-    if not filter_list:
-        filter_list = []
-    if type(lf) is dict:
-        if lf.get("filters"):
-            filter_list.append(deepcopy(lf["filters"]))
-        else:
-            for k, v in lf.items():
-                get_filters_from_lf(v, filter_list=filter_list)
-    return filter_list
-
-
 def get_filter(agent_memory, filters_d):
     dummy_interpreter = DummyInterpreter(SPEAKER_NAME, None, agent_memory)
     return dummy_interpreter.subinterpret["filters"](
@@ -255,25 +243,3 @@ def crossref_triples(snapshots):
                     obj_texts[subj].append(t[e]["obj_text"])
 
     return obj_texts
-
-
-# simple snapshot printer:
-def sp(snapshots, timestep=None):
-    obj_texts = crossref_triples(snapshots)
-    data = ""
-    if timestep is None:
-        e = snapshots["num_steps"] - 1
-    else:
-        e = timestep
-    for memid, v in obj_texts.items():
-        text = memid + ": " + str(list(set(v)))
-        s = snapshots["reference_objects"][memid][e]
-        pose = "["
-        for l in ["x", "y", "z", "yaw", "pitch"]:
-            if s[l] is None:
-                pose += " None "
-            else:
-                pose = pose + " {:.2f} ".format(s[l])
-        pose = pose + "] "
-        data += pose + text + "\n"
-    return data
