@@ -1,4 +1,4 @@
-from nsm_utils import (
+from utils.nsm_utils import (
     choice,
     k_multinomial,
     NULL_MEMID,

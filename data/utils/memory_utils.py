@@ -10,7 +10,7 @@ from droidlet.memory.craftassist.mc_memory_nodes import InstSegNode, MobNode
 from droidlet.memory.craftassist.mc_memory import MCAgentMemory
 from droidlet.shared_data_struct.craftassist_shared_utils import MOBS_BY_ID
 from utils.mob_names import MOB_NAMES
-from nsm_utils import AGENT_EID, SPEAKER_EID
+from utils.nsm_utils import AGENT_EID, SPEAKER_EID
 
 NUM_MOB_NAMES = len(MOB_NAMES)
 IDS_BY_MOB = {v: k for k, v in MOBS_BY_ID.items()}

@@ -23,7 +23,7 @@ this_path = os.path.dirname(os.path.abspath(__file__))
 data_gen_path = this_path + "/../data/"
 sys.path.append(data_gen_path)
 
-from nsm_utils import UUID_HASH_VOCAB_SIZE
+from utils.nsm_utils import UUID_HASH_VOCAB_SIZE
 
 
 def get_parser():

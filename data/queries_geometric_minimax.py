@@ -1,5 +1,5 @@
 import numpy as np
-from nsm_utils import (
+from utils.nsm_utils import (
     choice,
     k_multinomial,
     crossref_triples,
@@ -8,7 +8,7 @@ from nsm_utils import (
 )
 from query_objects import QA
 from droidlet.shared_data_struct import rotation
-from memory_utils import random_location
+from utils.memory_utils import random_location
 
 
 #############################################################################

@@ -1,6 +1,6 @@
 import numpy as np
 from query_objects import QA
-from nsm_utils import (
+from utils.nsm_utils import (
     choice,
     k_multinomial,
     NULL_MEMID,

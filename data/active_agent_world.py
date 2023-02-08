@@ -9,7 +9,7 @@ from droidlet.lowlevel.minecraft.iglu_util import IGLU_BLOCK_MAP
 from droidlet.memory.craftassist.mc_memory_nodes import InstSegNode
 from droidlet.lowlevel.minecraft.pyworld.fake_mobs import SimpleMob, make_mob_opts
 from droidlet.lowlevel.minecraft.small_scenes_with_shapes import build_shape_scene
-from nsm_utils import (
+from utils.nsm_utils import (
     make_world_args_from_config,
     SPEAKER_EID,
     AGENT_EID,
@@ -17,7 +17,7 @@ from nsm_utils import (
     k_multinomial,
     generate_items,
 )
-from memory_utils import (
+from utils.memory_utils import (
     add_snapshot,
     convert_memory_simple,
     make_player_struct_from_spec,

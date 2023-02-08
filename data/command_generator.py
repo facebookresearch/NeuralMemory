@@ -1,6 +1,6 @@
 import numpy as np
 from droidlet.interpreter.tests.all_test_commands import command
-from nsm_utils import k_multinomial, choice
+from utils.nsm_utils import k_multinomial, choice
 
 
 COMMAND_PROBS = {

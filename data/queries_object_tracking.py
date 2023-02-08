@@ -1,11 +1,11 @@
 from query_objects import QA
-from nsm_utils import (
+from utils.nsm_utils import (
     choice,
     k_multinomial,
     NULL_MEMID,
     format_location,
 )
-from memory_utils import random_location
+from utils.memory_utils import random_location
 
 LAST_TIME_SLICE = 1
 

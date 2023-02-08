@@ -6,8 +6,8 @@ if __name__ == "__main__":
     sys.path.append(this_path)
     droidlet_path = this_path.strip("data") + "fairo/"
     sys.path.append(droidlet_path)
-from nsm_utils import k_multinomial
-from memory_utils import add_snapshot, convert_memory_simple, check_inactive
+from utils.nsm_utils import k_multinomial
+from utils.memory_utils import add_snapshot, convert_memory_simple, check_inactive
 from config_args import get_opts
 from queries_filters_based import FiltersQA
 from queries_geometric_minimax import GeometricQA
@@ -79,7 +79,7 @@ class QAZoo:
 
 
 if __name__ == "__main__":
-    from memory_utils import build_memory
+    from utils.memory_utils import build_memory
 
     opts, configs = get_opts()
 

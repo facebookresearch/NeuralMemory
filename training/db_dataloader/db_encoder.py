@@ -17,7 +17,7 @@ from tokenizer import Tokenizer, LFKeyCoder, LFSimpleTokenizer, SimpleTextTokeni
 from transformers import GPT2Tokenizer
 from logical_form_encoder import linearize_and_encode
 from lf_tree_encoder import lf_tree_encode
-from nsm_utils import UUID_HASH_VOCAB_SIZE
+from utils.nsm_utils import UUID_HASH_VOCAB_SIZE
 from constants import (
     TOKENS_PER_CELL,
     T_HASH,

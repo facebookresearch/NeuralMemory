@@ -1,4 +1,4 @@
-from nsm_utils import NULL_MEMID
+from utils.nsm_utils import NULL_MEMID
 from query_objects import QA
 
 

@@ -1,7 +1,7 @@
 import torch
 from copy import deepcopy
-from nsm_utils import choice, k_multinomial, get_attribute, NULL_MEMID
-from memory_utils import random_location
+from utils.nsm_utils import choice, k_multinomial, get_attribute, NULL_MEMID
+from utils.memory_utils import random_location
 from query_objects import QA
 
 

@@ -17,14 +17,13 @@ sys.path.append(transformemnn_path)
 from droidlet.lowlevel.minecraft.small_scenes_with_shapes import build_shape_scene
 from droidlet.shared_data_structs import ErrorWithResponse
 from query_builder import QAZoo
-from memory_utils import build_memory, get_memory_text
-from nsm_utils import make_world_args_from_config
+from utils.memory_utils import build_memory, get_memory_text
+from utils.nsm_utils import make_world_args_from_config
 from db_encoder import DBEncoder
 from config_args import get_opts, read_configs
 from active_agent_world import EpisodeRunner, WorldBuilder
-from log_data import maybe_make_save_dir, update_data_info, save_files
-from nsm_utils import NULL_MEMID
-from interact import print_memory
+from utils.log_data import maybe_make_save_dir, update_data_info, save_files
+from utils.nsm_utils import NULL_MEMID
 from transformers import GPT2Tokenizer
 
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
