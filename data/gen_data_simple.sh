@@ -28,7 +28,7 @@ ACTIVE_WORLD_STEPS=50
 
 if [[ $PARTITION = "local" ]]; then
     echo running locally
-    python ./data/build_memory_eqa_data.py --seed=$SEED \
+    python ./data/generate_data.py --seed=$SEED \
                 --num_examples=$NUM_EXAMPLES \
                 --num_names=8  \
                 --num_props=8 \

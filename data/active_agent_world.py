@@ -1,27 +1,14 @@
 import numpy as np
 import sqlite3
+import os
+import sys
+
 from math import radians
 from droidlet.lowlevel.minecraft.pyworld.world import World
 from droidlet.lowlevel.minecraft.iglu_util import IGLU_BLOCK_MAP
-
-from droidlet.base_util import XYZ, Pos, Look
-from droidlet.shared_data_struct.craftassist_shared_utils import (
-    Player,
-    Item,
-    ItemStack,
-    Mob,
-)
-from droidlet.memory.memory_nodes import (
-    PlayerNode,
-    ReferenceObjectNode,
-    TaskNode,
-    TripleNode,
-)
-from droidlet.memory.craftassist.mc_memory_nodes import InstSegNode, MobNode
+from droidlet.memory.craftassist.mc_memory_nodes import InstSegNode
 from droidlet.lowlevel.minecraft.pyworld.fake_mobs import SimpleMob, make_mob_opts
 from droidlet.lowlevel.minecraft.small_scenes_with_shapes import build_shape_scene
-from droidlet.interpreter.craftassist import DummyInterpreter
-from droidlet.interpreter import SPEAKERLOOK
 from nsm_utils import (
     make_world_args_from_config,
     SPEAKER_EID,
@@ -39,8 +26,6 @@ from utils.mob_names import MOB_NAMES
 from command_generator import get_command
 
 NUM_MOB_NAMES = len(MOB_NAMES)
-import os
-import sys
 
 this_path = os.path.dirname(os.path.abspath(__file__))
 ### FIXME!!

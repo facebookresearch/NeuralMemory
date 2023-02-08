@@ -92,7 +92,7 @@ if [[ $PARTITION = "local" ]]; then
     SEED=0
     name="DATA_GEN.${SEED}.${TIMESTAMP}"
     echo running locally $name
-    python build_memory_eqa_data.py --seed=$SEED \
+    python generate_data.py --seed=$SEED \
                 --num_examples 100 \
                 --num_names 8  \
                 --num_props 8 \

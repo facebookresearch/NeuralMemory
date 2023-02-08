@@ -3,9 +3,10 @@ import argparse
 import uuid
 from pathlib import Path
 import submitit
-from build_memory_eqa_data import main
+from generate_data import main
 from config_args import get_opts, read_configs
 import copy
+
 
 class SubmititMain:
     def __init__(self, func):
@@ -28,7 +29,7 @@ parser.add_argument("--mem_per_cpu", type=int, default=2048, help="")
 parser.add_argument("--constraint", type=str, default="volta32gb", help="")
 parser.add_argument("--time", type=int, default=10, help="hours")
 parser.add_argument("--slurm_array", action="store_true", default=False)
-parser.add_argument("--array_iterations",  type=int, default=101, help="")
+parser.add_argument("--array_iterations", type=int, default=101, help="")
 parser.add_argument("--args", type=str, default="", help="")
 args = parser.parse_args()
 
@@ -50,9 +51,9 @@ executor.update_parameters(
     slurm_partition=args.partition,
     slurm_signal_delay_s=120,
     slurm_additional_parameters={
-                            "mail-user": f"{os.environ['USER']}@fb.com",
-                            "mail-type": "fail",
-                        },
+        "mail-user": f"{os.environ['USER']}@fb.com",
+        "mail-type": "fail",
+    },
 )
 
 executor.update_parameters(name=args.name)
@@ -62,7 +63,7 @@ submitit_main = SubmititMain(main)
 start_seed = job_args.seed
 
 if args.slurm_array:
-    seeds = range(start_seed,start_seed+args.array_iterations)
+    seeds = range(start_seed, start_seed + args.array_iterations)
     # seeds = range(319,575)
     jobs = []
     with executor.batch():
