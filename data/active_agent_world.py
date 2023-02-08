@@ -44,7 +44,6 @@ from droidlet.lowlevel.minecraft.craftassist_cuberite_utils.block_data import (
 )
 from droidlet.lowlevel.minecraft import craftassist_specs
 
-# FIXME: getfrom config:
 MAX_NUM_ITEMS = 6
 
 # for debugging:
@@ -88,7 +87,6 @@ class EpisodeRunner:
     def add_snapshot(self):
         snapshot = convert_memory_simple(self.agent.memory)
         self.snapshots = add_snapshot(self.snapshots, snapshot)
-        # FIXME
         if self.store_blocks:
             if self.snapshots.get("blocks") is None:
                 self.snapshots["blocks"] = []
@@ -133,8 +131,6 @@ class EpisodeRunner:
             self.add_incoming_chat(chatstr, speaker)
             self.agent.set_logical_form(logical_form, chatstr, speaker)
 
-        # FIXME, do this better (so there could be multiple sequential lfs, etc.).
-        # its stored in memory...
         self.snapshots["lf"] = logical_form
         self.snapshots["chatstr"] = chatstr
 
@@ -170,11 +166,9 @@ class EpisodeRunner:
                 if i % self.snapshot_freq == 0:
                     self.add_snapshot()
             if no_agent_step:
-                # FIXME make a dummy step
                 self.agent.count = self.agent.count + 1
                 # WARNING this will step the world faster than if agent was stepping..
                 self.agent.world.step()
-                # FIXME use agent's dummy step and proper perceive
                 perception_output = self.agent.perception_modules["low_level"].perceive(
                     force=True
                 )
@@ -229,7 +223,6 @@ class EpisodeRunner:
     def check_action_status(self, action_record):
         ok = True
         if action_record["name"] == "place_block" or action_record["name"] == "dig":
-            # FIXME account for coordinate shift if necessary:
             if any([action_record["args"][i] < 0 for i in range(3)]):
                 ok = False
             if any([action_record["args"][i] >= self.agent.world.sl for i in range(3)]):
@@ -292,7 +285,6 @@ class WorldBuilder:
         players = [P]
         mobs = []
         for mob_spec in scene_spec["mobs"]:
-            # FIXME add more possibilities:
             assert mob_spec["mobtype"] in ["rabbit", "cow", "pig", "chicken", "sheep"]
             mob_opt = make_mob_opts(mob_spec["mobtype"])
             x, y, z, pitch, yaw = mob_spec["pose"]
@@ -321,7 +313,6 @@ class WorldBuilder:
                 "items": items,
             },
         )
-        # FIXME this is a bad way to init
         world.agent_data = {
             "pos": scene_spec["agentInfo"]["pos"],
             "look": None,
@@ -334,8 +325,6 @@ class WorldBuilder:
             prebuilt_db=self.db,
             use_place_field=False,
         )
-        # FIXME look is flipped in small scenes with shapes!!!!
-        # and also this is an awful way to set up, FIXME
         pitch, yaw = scene_spec["agentInfo"]["look"]
         A.set_look_vec(*A.coordinate_transforms.look_vec(radians(yaw), radians(pitch)))
 
@@ -367,7 +356,7 @@ class WorldBuilder:
         A.recorder = R
 
         memory = A.memory
-        # FIXME!  this is not keeping the mobs from the spec associated with their colors!
+        # Warning  this is not keeping the mobs from the spec associated with their colors!
         # need to record eids at mob creation
         colors = [m["color"] for m in scene_spec["mobs"]]
         mob_memids = [
@@ -379,7 +368,6 @@ class WorldBuilder:
 
         mobs = []
         for memid in mob_memids:
-            # FIXME!
             color = choice(colors)
             memory.nodes["Triple"].tag(memory, subj_memid=memid, tag_text=color)
             name = choice(MOB_NAMES).lower()
@@ -393,9 +381,9 @@ class WorldBuilder:
         inst_segs = []
         for inst_seg in scene_spec["inst_seg_tags"]:
             if inst_seg.get("locs"):
-                # FIXME in fairo the inst_seg tags have a weird numpy type instead of str
+                # warning in fairo the inst_seg tags have a numpy type instead of str
                 tags = [str(t).lower() for t in inst_seg["tags"] if t[0] != "_"]
-                # FIXME the blocks in the inst_seg might be outside the world boundary!
+                # warning the blocks in the inst_seg might be outside the world boundary!
                 memid = InstSegNode.create(memory, inst_seg["locs"], tags)
                 t = choice(tags)
                 refobjs_for_command.append(t)
