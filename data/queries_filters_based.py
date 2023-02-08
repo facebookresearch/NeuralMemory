@@ -182,7 +182,6 @@ def build_name_clause(data, agent_memory, opts):
     name = selectable_names[torch.randint(len(selectable_names), (1,))].lower()
     clause = {"pred_text": "has_name", "obj_text": name}
     clause_text = "that is named " + name
-    # FIXME simplify this
     clause_triple_executable = {
         "AND": [
             {
@@ -204,10 +203,10 @@ def build_tag_clause(data, agent_memory, opts):
     # don't use properties that start with "_"
     selectable_props = [
         x for x in data["props"] if ((x[0] != "_") and (x not in ["AGENT", "SELF"]))
-    ]  # FIXME where should we do this?
+    ]
     selectable_props = [
         x for x in selectable_props if (x not in ["hole", "mob", "voxel_object"])
-    ]  # FIXME these aren't very helpful right now, so i'm removing them
+    ]
     prop = selectable_props[torch.randint(len(selectable_props), (1,))].lower()
     clause = {"pred_text": "has_tag", "obj_text": prop}
     clause_text = "that has the property " + prop
@@ -359,7 +358,6 @@ class FiltersQA(QA):
         super().__init__(data, agent=agent, memory=memory)
         opts = data["opts"]
         configs = data["config"]
-        # FIXME put all this in config, don't use opts
         if opts.fix_clauses:
             num_clauses = opts.num_clauses
         else:
@@ -372,7 +370,6 @@ class FiltersQA(QA):
             opts, configs
         )
 
-        # FIXME; deal with opts better
         opts.clause_opts_from_config = clause_opts
         question_data = {}
         question_data["clause_map"] = clause_map
@@ -433,7 +430,6 @@ class FiltersQA(QA):
                 self.answer_text = " " + str(len(memids))
             else:
                 self.answer_text = ""
-                # FIXME if we return a list of lists (e.g. x,y,z), expand the sublist elements
                 vals = [
                     x for x in vals if (x is not None and x[0] != "_")
                 ]  # remove non-queriable tokens

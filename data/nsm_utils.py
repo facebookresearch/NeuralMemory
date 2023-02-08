@@ -3,8 +3,6 @@ import droidlet.lowlevel.minecraft.shapes as shapes
 from droidlet.lowlevel.minecraft.pyworld.item import GettableItem
 from droidlet.interpreter.craftassist import DummyInterpreter
 from droidlet.interpreter import AttributeInterpreter
-
-# FIXME code to make this match with nsm data defaults
 from droidlet.lowlevel.minecraft.small_scenes_with_shapes import H
 from copy import deepcopy
 import time
@@ -111,8 +109,7 @@ POSSIBLE_TASKS = ["move", "build", "dance"]
 # rel_direction info
 REL_DIRECTIONS = ["LEFT", "RIGHT"]
 
-# FIXME "singleton" items, not uniformly composable properties
-# FIXME! put this in configs etc:
+# "singleton" items, not uniformly composable properties
 GETTABLE_TEXTURES = ["fuzzy", "matte", "shiny"]
 GETTABLE_TYPES = ["ball", "ring", "cone", "cross"]
 
@@ -223,7 +220,6 @@ def crossref_triples(snapshots):
     """
     find the triples associated to each reference_object in the snapshots
     we do this so we can do distances to inst_segs and other things with no names.
-    FIXME do all this with filters
     """
     obj_texts = {}
     e = snapshots["num_steps"] - 1
@@ -243,3 +239,16 @@ def crossref_triples(snapshots):
                     obj_texts[subj].append(t[e]["obj_text"])
 
     return obj_texts
+
+
+def maybe_name(snapshots, obj_texts, memid):
+    """
+    If the object has a name, return the name.
+    Otherwise, it's a block, so return onoe of its properties.
+    """
+    last_time_slice = max(list(snapshots["reference_objects"][memid].keys()))
+    name = snapshots["reference_objects"][memid][last_time_slice]["name"]
+    if name and name != "none":
+        return name, last_time_slice
+    else:
+        return choice(list(obj_texts[memid])), last_time_slice

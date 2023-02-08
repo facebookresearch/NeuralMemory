@@ -17,8 +17,6 @@ from queries_agent_action import AgentActionQA
 from queries_object_tracking import ObjectTrackingQA
 
 
-# FIXME/TODO? allow multiple questions per agent_memory,
-# and/or serialize/deserializing memory
 class QAZoo:
     """
     this is a container class for QA objects.

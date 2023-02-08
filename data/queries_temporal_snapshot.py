@@ -6,6 +6,7 @@ from nsm_utils import (
     NULL_MEMID,
     crossref_triples,
     format_location,
+    maybe_name,
 )
 from droidlet.shared_data_struct import rotation
 import random
@@ -26,20 +27,6 @@ QUERY TYPES:
 #############################################################################
 
 
-# FIXME move this to nsm_utils
-def maybe_name(snapshots, obj_texts, memid):
-    """
-    If the object has a name, return the name.
-    Otherwise, it's a block, so return onoe of its properties.
-    """
-    last_time_slice = max(list(snapshots["reference_objects"][memid].keys()))
-    name = snapshots["reference_objects"][memid][last_time_slice]["name"]
-    if name and name != "none":
-        return name, last_time_slice
-    else:
-        return choice(list(obj_texts[memid])), last_time_slice
-
-
 def location_at_time(snapshots, opts, o=None, time=None, name=None, memid=None):
 
     if not o:
@@ -50,7 +37,6 @@ def location_at_time(snapshots, opts, o=None, time=None, name=None, memid=None):
             and (x.get(LAST_TIME_SLICE, {}).get("name") is not None)
         ]
         o = choice(named_objects)
-        # FIXME when we use more snapshots
         time = choice(["beginning", "end"])
         name = o[0]["name"]
         memid = o[0]["uuid"]
@@ -135,7 +121,6 @@ def direction_moved_object(
             }
         )
     if dtype == "cardinal":
-        # FIXME do "y" too?
         if not c:
             c = choice(["x", "z"])
             direction = choice([-1, 1])
@@ -187,7 +172,6 @@ def farthest_direction_moved_object(
             }
         )
     if dtype == "cardinal":
-        # FIXME do "y" too?
         if not c:
             c = choice(["x", "z"])
             direction = choice([-1, 1])
@@ -303,26 +287,21 @@ class TemporalSnapshotQA(QA):
         self.sample_clause_types = [qtype]
         self.sample_conjunction_type = None
         query_configs = configs.get("question_configs", {}).get("qtype", {})
-        # FIXME what if more than one?
+        # WARNING only handles 1 at a time
         question_text, refobj_memids, time_slice, answer = f(snapshots, query_configs)
         self.question_text = " {}".format(question_text)
-        # FIXME clean up continually checking to see if it's a list
+        # WARNING should continually check to see if it's a list
         if type(refobj_memids) is not list:
             refobj_memids = [refobj_memids]
 
         self.memids_and_vals = (refobj_memids, None)
 
-        # FIXME
         self.question_logical_form = "NULL"
-        # FIXME
         self.triple_memids_and_vals = ([NULL_MEMID], None)
-        # FIXME, do this better
         if qtype == "location_at_time":
             output_type = "location"
         else:
             output_type = k_multinomial(configs["output_prop_probs"])
-        # FIXME!!!! don't just swallow weird situations, debug
-        # rn using to deal with no memid returned, e.g. from farthest_direction_moved_object if nothing went that direction
         if answer is None:
             answer = get_output_from_mem(
                 refobj_memids, snapshots, output_type, time_slice=time_slice

@@ -222,7 +222,6 @@ class Collater:
         # T is the number of timesteps, assuming T is the same for all examples for now
         T = examples[0]["context"]["t_hash"].size(0)
 
-        # FIXME remove buffer and use only the longest in the batch (set max len)
         collated_contexts = {}
         for k in examples[0]["context"].keys():
             if len(examples[0]["context"][k].size()) > 1:

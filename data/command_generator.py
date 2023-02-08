@@ -2,9 +2,6 @@ import numpy as np
 from droidlet.interpreter.tests.all_test_commands import command
 from nsm_utils import k_multinomial, choice
 
-# FIXME PUT these in all_test_commands so they will be updated as
-# grammar changes
-
 
 COMMAND_PROBS = {
     "move_around": 1.0,

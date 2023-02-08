@@ -312,7 +312,6 @@ class Featurizer(nn.Module):
             else:
                 if self.training:
                     # randomize all the hashes across samples
-                    # FIXME change to randperm + gather?
                     randval = randrange(self.uuid_hash_vocab_size)
 
                     t_hash[t_hash > 0] += randval
@@ -341,7 +340,7 @@ class Featurizer(nn.Module):
                 [
                     triple_hash,
                     triple_words,
-                    # triple_float #FIXME removing this for now (add 1 more to TRIPLES_COLUMNS when fixing)
+                    # triple_float #WARNING need to add 1 more to TRIPLES_COLUMNS if adding this back
                 ],
                 2,
             )
@@ -378,7 +377,7 @@ class Featurizer(nn.Module):
                 [
                     self.xyz(xyz),
                     self.pitchyaw(pitchyaw),
-                    # self.basemem_float(r_float_2d[:, RBM]), #FIXME removing these for now (add 3 more to REF_OBJ_COLUMNS when fixing)
+                    # self.basemem_float(r_float_2d[:, RBM]), #WARNING need to add 3 more to REF_OBJ_COLUMNS if adding these back
                     # self.voxelcount(r_float_2d[:, RVOL]),
                     # self.bbox(r_float_2d[:, RBBOX]),
                 ],

@@ -25,10 +25,7 @@ from memory_utils import (
 from utils.mob_names import MOB_NAMES
 from command_generator import get_command
 
-NUM_MOB_NAMES = len(MOB_NAMES)
-
 this_path = os.path.dirname(os.path.abspath(__file__))
-### FIXME!!
 fake_agent_path = this_path.strip("data") + "fairo/agents/craftassist/tests/"
 sys.path.append(fake_agent_path)
 from fake_agent import FakeAgent, FakePlayer
@@ -44,6 +41,7 @@ from droidlet.lowlevel.minecraft.craftassist_cuberite_utils.block_data import (
 )
 from droidlet.lowlevel.minecraft import craftassist_specs
 
+NUM_MOB_NAMES = len(MOB_NAMES)
 MAX_NUM_ITEMS = 6
 
 # for debugging:
@@ -74,7 +72,6 @@ def low_level_data():
     return low_level_data
 
 
-# FIXME do this in fairo proper, reuse in test cases and pyworld agent
 class EpisodeRunner:
     def __init__(self, agent, snapshot_freq=0, keep_on_truckin=False):
         self.agent = agent

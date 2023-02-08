@@ -1,12 +1,7 @@
 import torch
 from math import radians
-from droidlet.base_util import XYZ, Pos, Look
-from droidlet.shared_data_struct.craftassist_shared_utils import (
-    Player,
-    Item,
-    ItemStack,
-    Mob,
-)
+from droidlet.base_util import Pos, Look
+from droidlet.shared_data_struct.craftassist_shared_utils import Player, Item
 from droidlet.memory.memory_nodes import (
     PlayerNode,
 )
@@ -15,7 +10,7 @@ from droidlet.memory.craftassist.mc_memory_nodes import InstSegNode, MobNode
 from droidlet.memory.craftassist.mc_memory import MCAgentMemory
 from droidlet.shared_data_struct.craftassist_shared_utils import MOBS_BY_ID
 from utils.mob_names import MOB_NAMES
-from nsm_utils import AGENT_EID, SPEAKER_EID, SPEAKER_NAME
+from nsm_utils import AGENT_EID, SPEAKER_EID
 
 NUM_MOB_NAMES = len(MOB_NAMES)
 IDS_BY_MOB = {v: k for k, v in MOBS_BY_ID.items()}
@@ -44,7 +39,7 @@ def random_location(opts, ground_height=0):
 
 
 def make_player_struct_from_spec(s, eid, name, item=None):
-    # FIXME look is flipped in small scenes with shapes!!!!
+    # WARNING look is flipped in small scenes with shapes!!!!
     pitch, yaw = s["look"]
     if item:
         i = Item(*item)
@@ -63,7 +58,6 @@ def populate_memory_from_world_spec(spec, memory, use_inst_segs):
         spec["avatarInfo"], SPEAKER_EID, "speaker"
     )
     PlayerNode.create(memory, speaker_struct)
-    # FIXME make a safe eid generator!!
     count = 1000
 
     for mob in spec["mobs"]:
@@ -72,7 +66,6 @@ def populate_memory_from_world_spec(spec, memory, use_inst_segs):
         mob_struct = MobStruct(x, y, z, radians(p), radians(yaw), count, mob["mobtype"])
         memid = MobNode.create(memory, mob_struct)
         memory.tag(subj_memid=memid, tag_text=mob["color"])
-        # FIXME!!!!
         name = MOB_NAMES[int(torch.randint(NUM_MOB_NAMES, (1,)))]
         memory.add_triple(subj=memid, pred_text="has_name", obj_text=name.lower())
         memory._db_write("UPDATE ReferenceObjects SET name=? WHERE uuid=?", name, memid)
@@ -159,12 +152,12 @@ def add_basemem_info(agent_memory, record):
 
 def convert_memory_simple(agent_memory, opts={}):
     """
-    inputs agent memory, outputs a dict with possible fields 
+    inputs agent memory, outputs a dict with possible fields
     "triples", "tasks", "reference_objects".
     each field contains a list of memories of the specified type
-    each memory in the list is a dict with fields that depend on the 
+    each memory in the list is a dict with fields that depend on the
     type.
-    all contain "node_type", "create_time", "updated_time", "attended_time"    
+    all contain "node_type", "create_time", "updated_time", "attended_time"
     """
     out = {}
     if opts.get("all_triples"):
@@ -237,7 +230,7 @@ def convert_memory_simple(agent_memory, opts={}):
 
 
 def get_memory_text(memory, snapshots):
-    ""
+    """"""
     # Creates the text form of the memories. This could be instead be done during the memory creation
     # This function returns a string where each sentence is a context memory.
     # E.g. "chris is at location (5, 4, 2). chris is a cow. chris is green. mary is at location ..."
@@ -263,8 +256,7 @@ def get_memory_text(memory, snapshots):
                 z = round(RO["z"])
                 pitch = RO["pitch"] if RO["pitch"] is not None else ""
                 yaw = RO["yaw"] if RO["yaw"] is not None else ""
-                
- 
+
                 props = []
                 for triple_id in triple_ids:
                     if T in context["triples"][triple_id]:
@@ -286,23 +278,29 @@ def get_memory_text(memory, snapshots):
                     memory_text = "{} is at location ({},{},{}). ".format(name, x, y, z)
                     if pitch != "" or yaw != "":
                         try:
-                            memory_text += "{} has pitch {:.2f} and yaw {:.2f}. ".format(
-                                name, pitch, yaw
+                            memory_text += (
+                                "{} has pitch {:.2f} and yaw {:.2f}. ".format(
+                                    name, pitch, yaw
+                                )
                             )
                         except:
                             import ipdb
+
                             ipdb.set_trace()
 
                     for prop in props:
                         if prop:
                             prop = prop.lower()
-                            if prop in ['_in_others_inventory','_on_ground','_in_inventory'] or (prop[0] != "_" and prop != name and prop != "mob"):
+                            if prop in [
+                                "_in_others_inventory",
+                                "_on_ground",
+                                "_in_inventory",
+                            ] or (prop[0] != "_" and prop != name and prop != "mob"):
                                 memory_text += "{} has property {}. ".format(name, prop)
                     memory_text_list.append(memory_text)
 
     memory_text = "".join(memory_text_list)[0:-1]
     return memory_text
-
 
 
 def check_inactive(qa_name, qa_obj, db_dump):
@@ -314,16 +312,16 @@ def check_inactive(qa_name, qa_obj, db_dump):
     Returns False if both clauses are used
     """
     if qa_name == "FiltersQA":
-        for clause_idx in range(2): # 2 clauses
+        for clause_idx in range(2):  # 2 clauses
             query = qa_obj.query.copy()
-            clauses = query['where_clause']['AND'][0]
-            num_clauses = len(clauses.get('AND',[]))
-            if num_clauses>1:
-                clauses['AND'] = [clauses['AND'][clause_idx]]
+            clauses = query["where_clause"]["AND"][0]
+            num_clauses = len(clauses.get("AND", []))
+            if num_clauses > 1:
+                clauses["AND"] = [clauses["AND"][clause_idx]]
                 qa_obj.get_answer(query)
                 db_dump2 = qa_obj.get_all()
-                is_eq = (db_dump["memids_and_vals"] == db_dump2["memids_and_vals"])
+                is_eq = db_dump["memids_and_vals"] == db_dump2["memids_and_vals"]
                 if is_eq:
                     return True
-                    
+
     return False

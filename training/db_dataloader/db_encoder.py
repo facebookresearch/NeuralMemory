@@ -372,15 +372,14 @@ class DBEncoder:
         if self.query_encode == "seq_lf":
             qlf = db_dump["question_logical_form"]
             q = linearize_and_encode(qlf, self.text_tokenizer, self.lf_tokenizer)
-            # WARNING: this is clipping float numbers.  FIXME allow float encodings...
+            # WARNING: this is clipping float numbers. should allow float encodings.
             x_slf = torch.LongTensor(q["encoded"])
             masks = torch.zeros(len(x_slf), 3)
             for s in q["coordinate_spans"]:
                 # SL + 1 because we assume any number is bigger than -SL, and
-                # 0 is the pad idx.  FIXME, make an opt
+                # 0 is the pad idx.
                 x_slf[s[0] : s[1]] = x_slf[s[0] : s[1]] + self.SL + 1
                 masks[s[0] : s[1], 0] = 1
-            # FIXME? use a separate number embedding?
             for s in q["number_spans"]:
                 x_slf[s[0] : s[1]] = x_slf[s[0] : s[1]] + self.SL + 1
                 masks[s[0] : s[1], 0] = 1

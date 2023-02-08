@@ -44,7 +44,7 @@ def hypothetical_location(snapshots, opts):
         carrier, format_location(*loc), formatted_tags
     )
     owner = ""
-    # FIXME: if we want to have more than one player or more than one agent...!
+    # WARNING only handles 1 agent and 1 player
     if "_in_others_inventory" in tags:
         owner = "I"
     elif "_in_inventory" in tags:
@@ -84,10 +84,11 @@ class ObjectTrackingQA(QA):
         self.sample_conjunction_type = None
         query_configs = configs.get("question_configs", {}).get("qtype", {})
         query_configs["SL"] = opts.SL
-        # FIXME what if more than one?
+        # WARNING can only handle one at a time
         question_text, refobj_memids, answer = f(snapshots, query_configs)
         self.question_text = " {}".format(question_text)
-        # FIXME clean up continually checking to see if it's a list
+
+        # WARNING only checks to see if it's a list once
         if type(refobj_memids) is not list:
             refobj_memids = [refobj_memids]
 
