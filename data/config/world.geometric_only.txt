@@ -1,0 +1,41 @@
+{
+"QA":{
+  "GeometricQA": {
+    "prob": 0.3,
+    "requires_active_world": true,
+    "question_types": {
+      "closest_farthest_object": 1.0,
+      "closest_farthest_from_loc": 1.0,
+      "max_direction": 1.0,
+      "distance_between": 1.0
+      },
+     "question_configs":{
+       "max_direction":{
+         "cardinal": 1.0,
+	       "relative": 1.0
+      }
+     }
+    },
+  "BasicGeometricQA": {
+    "prob": 0.1,
+    "requires_active_world": true,
+    "question_types": {
+      "where_is_object": 0.1,
+      "look_direction": 0.2,
+      "what_is_location_nearby": 0.5
+      },
+    "relative": 1.0
+    },
+  "AgentActionQA": {
+    "prob": 0.1,
+    "requires_active_world": true
+    }
+  },
+"WORLD":{
+  "mob_config":"num_mobs:4",
+  "SL":15
+  },
+"AGENT":{
+  "lf_prob": 1.0
+  }
+}

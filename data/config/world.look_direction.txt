@@ -1,0 +1,21 @@
+{
+"QA":{
+  "BasicGeometricQA": {
+    "prob": 1.0,
+    "requires_active_world": true,
+    "question_types": {
+      "where_is_object": 0.0,
+      "look_direction": 1.0,
+      "what_is_location_nearby": 0.0
+      },
+    "relative": 1.0
+    }
+  },
+"WORLD":{
+  "mob_config":"num_mobs:4",
+  "SL":15
+  },
+"AGENT":{
+  "lf_prob": 1.0
+  }
+}
