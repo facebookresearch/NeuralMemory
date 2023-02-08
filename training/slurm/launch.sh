@@ -13,7 +13,7 @@ mkdir -p $base_dir
 
 # backup the code
 codedir=$base_dir/code/
-rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/transformemNN/ $codedir
+rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/training/ $codedir
 rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/data/* $codedir
 
 # log the git state

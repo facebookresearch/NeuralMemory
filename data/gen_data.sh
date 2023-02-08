@@ -78,9 +78,9 @@ ngpus=0
 
 codedir=$base_dir/code/
 rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/data/ $codedir
-rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/transformemNN/db_dataloader/*.py $codedir
-rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/transformemNN/utils/*.py $codedir
-rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/transformemNN/interact.py $codedir
+rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/training/db_dataloader/*.py $codedir
+rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/training/utils/*.py $codedir
+rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/training/interact.py $codedir
 rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/fairo/agents/craftassist/tests/*.py $codedir
 rsync -a --exclude=".*" --exclude="*.pyc" /private/home/$USER/aszlam_droidlet_nsm/fairo/droidlet/perception/craftassist/*.py $codedir
 cd $codedir

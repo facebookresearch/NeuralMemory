@@ -8,7 +8,7 @@ import scipy
 
 this_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(this_path)
-transformemnn_path = this_path.strip("data") + "/transformemNN/"
+transformemnn_path = this_path.strip("data") + "/training/"
 sys.path.append(transformemnn_path + "/db_dataloader")
 droidlet_path = this_path.strip("data") + "/fairo/"
 sys.path.append(droidlet_path)

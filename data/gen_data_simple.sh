@@ -54,9 +54,9 @@ else
     codedir=$base_dir/code/
 
     rsync -a --exclude=".*" --exclude="*.pyc" ./data/ $codedir
-    rsync -a --exclude=".*" --exclude="*.pyc" ./transformemNN/db_dataloader/*.py $codedir
-    rsync -a --exclude=".*" --exclude="*.pyc" ./transformemNN/utils/*.py $codedir
-    rsync -a --exclude=".*" --exclude="*.pyc" ./transformemNN/interact.py $codedir
+    rsync -a --exclude=".*" --exclude="*.pyc" ./training/db_dataloader/*.py $codedir
+    rsync -a --exclude=".*" --exclude="*.pyc" ./training/utils/*.py $codedir
+    rsync -a --exclude=".*" --exclude="*.pyc" ./training/interact.py $codedir
     rsync -a --exclude=".*" --exclude="*.pyc" ./fairo/agents/craftassist/tests/*.py $codedir
     rsync -a --exclude=".*" --exclude="*.pyc" ./fairo/droidlet/perception/craftassist/*.py $codedir
     cd $codedir

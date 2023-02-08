@@ -34,7 +34,12 @@ def init(args):
             world_size=job_env.num_tasks,
         )
     else:
-        torch.distributed.init_process_group(backend="nccl", init_method='file:///tmp/transformemNN_dist_init', world_size=args.world_size, rank=args.local_rank)
+        torch.distributed.init_process_group(
+            backend="nccl",
+            init_method="file:///tmp/training_dist_init",
+            world_size=args.world_size,
+            rank=args.local_rank,
+        )
         # torch.distributed.init_process_group(backend="nccl", init_method="env://", world_size=- 1, rank=- 1)
         args.rank = torch.distributed.get_rank()
         # args.world_size = torch.distributed.get_world_size()
@@ -93,6 +98,7 @@ def wrap_model(args, model):
         model = model.to(args.device)
     return model
 
+
 def wrap_dataset(args, dataset, collater, sampler=None, test=False):
     if args.submitit:
         job_env = submitit.JobEnvironment()
@@ -103,17 +109,23 @@ def wrap_dataset(args, dataset, collater, sampler=None, test=False):
         sampler = tds.distributed.DistributedSampler(dataset)
     batch_sz = args.batch_sz
     if test:
-        shuffle=False
+        shuffle = False
     else:
-        shuffle = (sampler is None)
+        shuffle = sampler is None
 
     if args.full_test:
         drop_last = False
     else:
         drop_last = True
-        
+
     dataloader = tds.DataLoader(
-        dataset, collate_fn=collater, batch_size=batch_sz, shuffle=shuffle, sampler=sampler, drop_last=drop_last, num_workers=args.num_workers
+        dataset,
+        collate_fn=collater,
+        batch_size=batch_sz,
+        shuffle=shuffle,
+        sampler=sampler,
+        drop_last=drop_last,
+        num_workers=args.num_workers,
     )
     return dataloader, sampler
 
@@ -132,7 +144,7 @@ def collect_stat(args, stat_train, stat_train_memid, stat_val, stat_val_memid):
 
     torch.distributed.reduce(X, 0)
     torch.cuda.synchronize()
-    
+
     if args.rank == 0:
         stat_train["loss"] = X[0].item() / args.world_size
         stat_train["text_loss"] = X[1].item() / args.world_size
@@ -143,4 +155,3 @@ def collect_stat(args, stat_train, stat_train_memid, stat_val, stat_val_memid):
         stat_val["text_loss"] = X[5].item() / args.world_size
         stat_val_memid["ref_obj_loss"] = X[6].item() / args.world_size
         stat_val_memid["ref_obj_KL"] = X[7].item() / args.world_size
-

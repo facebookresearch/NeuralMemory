@@ -85,4 +85,4 @@ echo $JOB_NAME
 args=$args" --simple-data-path=$DATA_PATH"
 
 
-./transformemNN/slurm/launch.sh $JOB_NAME $PARTITION $NGPUS $NNODES $RUN_TYPE $NUM_SEEDS $args
+./training/slurm/launch.sh $JOB_NAME $PARTITION $NGPUS $NNODES $RUN_TYPE $NUM_SEEDS $args
