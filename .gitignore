@@ -13,6 +13,7 @@ results*/*
 results_new/*
 results_old/*
 private/*
+data/private/*
 core
 .nfs*
 .vscode/
