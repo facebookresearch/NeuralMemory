@@ -22,7 +22,6 @@ from nsm_utils import make_world_args_from_config
 from db_encoder import DBEncoder
 from config_args import get_opts, read_configs
 from active_agent_world import EpisodeRunner, WorldBuilder
-from utils.generate_custom_val import generate_custom_val
 from log_data import maybe_make_save_dir, update_data_info, save_files
 from nsm_utils import NULL_MEMID
 from interact import print_memory
@@ -249,11 +248,6 @@ def main(opts):
             memory = build_memory(opts, world_spec=world_spec)
 
         Z = QAZoo(opts, configs)
-
-        if opts.make_custom_val:
-            generate_custom_val(
-                opts, configs, world_spec, snapshots, save_dir, memory, encoder
-            )
 
         encoded_sample = find_valid_query(
             opts,
