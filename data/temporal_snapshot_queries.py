@@ -26,11 +26,6 @@ QUERY TYPES:
 #############################################################################
 
 
-# FIXME move this to nsm_utils, also use in filters_based_queries
-def format_location(x, y, z):
-    return "({}, {}, {})".format(round(x), round(y), round(z))
-
-
 # FIXME move this to nsm_utils
 def maybe_name(snapshots, obj_texts, memid):
     """

@@ -197,7 +197,6 @@ def append_time(times, old_time, text=""):
     return time.time()
 
 
-# FIXME also use in filters_based_queries
 def format_location(x, y, z):
     return "({}, {}, {})".format(round(x), round(y), round(z))
 
