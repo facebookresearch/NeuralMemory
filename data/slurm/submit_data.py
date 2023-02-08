@@ -1,9 +1,8 @@
 import os
 import argparse
-import uuid
 from pathlib import Path
 import submitit
-from generate_data import main
+from build_data import main
 from config_args import get_opts, read_configs
 import copy
 
