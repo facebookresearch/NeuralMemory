@@ -29,4 +29,5 @@ To change the query types, change the config file to one of the files from data/
 If you change the config file or the number of samples, be sure to modify the `--simple-data-path` arg to math the newly generated data.
 
 
-This repository is [CC-BY-NC 4.0](./LICENSE).
+## License
+This code is CC-BY-NC 4.0 licensed, as found in the LICENSE file.
