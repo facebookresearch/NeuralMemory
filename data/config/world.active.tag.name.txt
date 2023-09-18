@@ -1,0 +1,36 @@
+{
+"QA":{
+  "FiltersQA":{
+    "prob": 1.0,
+    "clause_types":{
+      "name": 0.0,
+      "tag": 1.0,
+      "absolute_cardinal": 0.0,
+      "absolute_distance": 0.0,
+      "direction": 0.0
+      },
+    "output_prop_probs":{
+      "MEMORY": 0.0,
+      "COUNT": 0.0,
+      "name": 1.0,
+      "has_tag": 0.0,
+      "LOCATION": 0.0
+      },
+    "clause_opts": {
+      "direction": {"direction_types": "horizontal"}
+      },
+    "operator_probs": {
+      "AND": 1.0,
+      "OR": 0.5,
+      "NONE": 0.2,
+      "NOT": 0.1
+      }
+    }
+  },
+"WORLD":{
+  "mob_config":"num_mobs:4"
+  },
+"AGENT":{
+  "lf_prob": 1.0
+  }
+}

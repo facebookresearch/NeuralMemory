@@ -1,0 +1,104 @@
+{
+"QA":{
+  "FiltersQA":{
+    "prob": 0.6,
+    "clause_types":{
+      "name": 1.0,
+      "tag": 1.0,
+      "absolute_cardinal": 0.75,
+      "absolute_distance": 1.0,
+      "direction": 0.75
+      },
+    "output_prop_probs":{
+      "MEMORY": 0.0,
+      "COUNT": 1.0,
+      "name": 1.0,
+      "has_tag": 1.0,
+      "LOCATION": 0.0
+      },
+    "clause_opts": {
+      "direction": {"direction_types": "horizontal"}
+      },
+    "operator_probs": {
+      "AND": 1.0,
+      "OR": 0.5,
+      "NONE": 0.2,
+      "NOT": 0.1
+      }
+    },
+  "TemporalSnapshotQA": {
+    "prob": 0.3,
+    "requires_active_world": true,
+    "question_types": {
+      "distance_moved": 1.0,
+      "farthest_moved_object": 1.0,
+      "location_at_time": 1.0,
+      "farthest_direction_moved_object": 1.0,
+      "direction_moved_object": 1.0
+      },
+    "output_prop_probs":{
+      "MEMORY": 0.0,
+      "name": 1.0,
+      "has_tag": 0.0,
+      "location": 0.0
+      },
+     "question_configs":{
+       "farthest_direction_moved_object":{
+         "cardinal": 1.0,
+	       "relative": 1.0
+      }
+     }
+    },
+  "GeometricQA": {
+    "prob": 0.3,
+    "requires_active_world": true,
+    "question_types": {
+      "closest_farthest_object": 1.0,
+      "closest_farthest_from_loc": 1.0,
+      "max_direction": 1.0,
+      "distance_between": 1.0
+      },
+     "question_configs":{
+       "max_direction":{
+         "cardinal": 1.0,
+	       "relative": 1.0
+      }
+     }
+    },
+  "BasicGeometricQA": {
+    "prob": 0.1,
+    "requires_active_world": true,
+    "question_types": {
+      "where_is_object": 0.1,
+      "look_direction": 0.2,
+      "what_is_location_nearby": 0.5
+      },
+    "relative": 1.0
+    },
+  "AgentActionQA": {
+    "prob": 0.1,
+    "requires_active_world": true
+    },
+  "ObjectTrackingQA": {
+    "prob": 0.2,
+    "requires_active_world": true,
+    "question_types": {
+      "hypothetical_location": 1.0
+      },
+    "output_prop_probs":{
+      "MEMORY": 0.0,
+      "name": 1.0,
+      "has_tag": 0.0,
+      "location": 0.0
+      }
+     }
+  },
+"WORLD":{
+  "mob_config":"num_mobs:4",
+  "grabby_mob_config": "pick_prob:.5;drop_prob:.1;pick_range:2",
+  "SL":15
+  },
+"AGENT":{
+  "lf_prob": 1.0
+  }
+}

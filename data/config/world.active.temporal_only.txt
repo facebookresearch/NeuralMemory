@@ -1,0 +1,47 @@
+{
+"QA":{
+  "TemporalSnapshotQA": {
+    "prob": 0.3,
+    "requires_active_world": true,
+    "question_types": {
+      "distance_moved": 1.0,
+      "farthest_moved_object": 1.0,
+      "location_at_time": 1.0,
+      "farthest_direction_moved_object": 1.0,
+      "direction_moved_object": 1.0
+      },
+    "output_prop_probs":{
+      "MEMORY": 0.0,
+      "name": 1.0,
+      "has_tag": 0.0,
+      "location": 0.0
+      },
+     "question_configs":{
+       "farthest_direction_moved_object":{
+         "cardinal": 1.0,
+	       "relative": 1.0
+      }
+     }
+    },
+    "ObjectTrackingQA": {
+    "prob": 0.2,
+    "requires_active_world": true,
+    "question_types": {
+      "hypothetical_location": 1.0
+      },
+    "output_prop_probs":{
+      "MEMORY": 0.0,
+      "name": 1.0,
+      "has_tag": 0.0,
+      "location": 0.0
+      }
+     }
+  },
+"WORLD":{
+  "mob_config":"num_mobs:4",
+  "SL":15
+  },
+"AGENT":{
+  "lf_prob": 1.0
+  }
+}

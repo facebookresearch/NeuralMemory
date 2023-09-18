@@ -1,0 +1,24 @@
+{
+"QA":{
+  "ObjectTrackingQA": {
+    "prob": 1.0,
+    "requires_active_world": true,
+    "question_types": {
+      "hypothetical_location": 1.0
+      },
+    "output_prop_probs":{
+      "MEMORY": 0.0,
+      "name": 1.0,
+      "has_tag": 0.0,
+      "location": 0.0
+      }
+     }
+    },
+"WORLD":{
+  "mob_config":"num_mobs:4",
+  "SL":15
+  },
+"AGENT":{
+  "lf_prob": 1.0
+  }
+}

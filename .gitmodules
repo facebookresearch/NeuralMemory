@@ -1,0 +1,3 @@
+[submodule "fairo"]
+	path = fairo
+	url = https://github.com/facebookresearch/fairo
